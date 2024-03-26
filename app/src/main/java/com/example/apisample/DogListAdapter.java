@@ -8,13 +8,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apisample.databinding.DogListLayoutBinding;
+import com.squareup.picasso.Picasso;
 
+import java.net.CookieHandler;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DogListAdapter extends RecyclerView.Adapter<DogListAdapter.DogListViewHolder> {
 
-    private List<String> dogBreedList = new ArrayList<>();
+    private List<DogImage> dogImageList = new ArrayList<>();
 
     @NonNull
     @Override
@@ -28,16 +30,16 @@ public class DogListAdapter extends RecyclerView.Adapter<DogListAdapter.DogListV
 
     @Override
     public void onBindViewHolder(@NonNull DogListViewHolder holder, int position) {
-        holder.bind(dogBreedList.get(position));
+        holder.bind(dogImageList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return dogBreedList.size();
+        return dogImageList.size();
     }
 
-    public void setDogBreedList(List<String> dogBreedList) {
-        this.dogBreedList = dogBreedList;
+    public void setDogImageList(List<DogImage> dogImageList) {
+        this.dogImageList = dogImageList;
     }
 
     public class DogListViewHolder extends RecyclerView.ViewHolder {
@@ -49,9 +51,8 @@ public class DogListAdapter extends RecyclerView.Adapter<DogListAdapter.DogListV
             this.binding = binding;
         }
 
-        public void bind(String dogBreedName) {
-            binding.tvDogBreedName.setText(dogBreedName);
-
+        public void bind(DogImage dogImage) {
+            Picasso.get().load(dogImage.imageUrl).into(binding.ivDogImage);
         }
     }
 }
